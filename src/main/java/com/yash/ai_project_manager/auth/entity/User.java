@@ -4,13 +4,12 @@ import jakarta.persistence.*;
 import com.yash.ai_project_manager.auth.enums.Role;
 import lombok.Getter;
 import lombok.Setter;
-import org.jspecify.annotations.Nullable;
 
 import java.util.UUID;
 
 @Entity
 @Table(name = "users")
-@Getter // Generates all getters automatically
+@Getter
 @Setter
 public class User {
 
