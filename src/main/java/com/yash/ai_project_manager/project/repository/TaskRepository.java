@@ -1,6 +1,7 @@
 package com.yash.ai_project_manager.project.repository;
 
 import com.yash.ai_project_manager.project.entity.Task;
+import com.yash.ai_project_manager.project.enums.TaskStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,5 +14,9 @@ public interface TaskRepository
     List<Task> findByProjectId(UUID projectId);
 
     List<Task> findByAssigneeId(UUID assigneeId);
+
+    List<Task> findByStatus(
+            TaskStatus status
+    );
 
 }
