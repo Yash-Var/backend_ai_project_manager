@@ -1,6 +1,7 @@
 package com.yash.ai_project_manager.project.service;
 
 import com.yash.ai_project_manager.project.dto.TaskRequestDTO;
+import com.yash.ai_project_manager.project.dto.TaskUpdateMessageDTO;
 import com.yash.ai_project_manager.project.dto.UpdateTaskStatusRequestDTO;
 import com.yash.ai_project_manager.project.entity.Project;
 import com.yash.ai_project_manager.project.entity.Task;
@@ -25,6 +26,7 @@ public class TaskService {
     private final ProjectRepository projectRepository;
     private final UserRepository userRepository;
     private final ActivityLogService activityLogService;
+    private final WebSocketNotificationService webSocketNotificationService;
 
     public Task createTask(
             TaskRequestDTO request
@@ -73,6 +75,13 @@ public class TaskService {
                 savedTask,
                 ActivityAction.TASK_CREATED
         );
+        webSocketNotificationService.sendTaskUpdate(
+                new TaskUpdateMessageDTO(
+                        savedTask.getId().toString(),
+                        savedTask.getTitle(),
+                        savedTask.getStatus().name()
+                )
+        );
         return savedTask;
     }
 
@@ -102,6 +111,13 @@ public class TaskService {
 
         Task updatedTask =
                 taskRepository.save(task);
+        webSocketNotificationService.sendTaskUpdate(
+                new TaskUpdateMessageDTO(
+                        task.getId().toString(),
+                        task.getTitle(),
+                        task.getStatus().name()
+                )
+        );
         if (request.status() == TaskStatus.IN_PROGRESS) {
 
             activityLogService.log(

@@ -25,7 +25,6 @@ public class TaskController {
     public Task createTask(
             @RequestBody TaskRequestDTO request
     ) {
-
         return taskService.createTask(
                 request
         );
