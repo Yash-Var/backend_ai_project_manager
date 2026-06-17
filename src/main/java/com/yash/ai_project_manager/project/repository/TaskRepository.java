@@ -18,5 +18,10 @@ public interface TaskRepository
     List<Task> findByStatus(
             TaskStatus status
     );
+    long countByProjectIdAndStatus(
+            UUID projectId,
+            TaskStatus status
+    );
+    long countByProjectId(UUID projectId);
 
 }
