@@ -24,4 +24,9 @@ public interface TaskRepository
     );
     long countByProjectId(UUID projectId);
 
+    List<Task> findByProjectIdOrderByCreatedAtAsc(UUID projectId);
+
+    List<Task> findByEpicId(
+            UUID epicId
+    );
 }

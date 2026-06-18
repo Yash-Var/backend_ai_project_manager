@@ -12,6 +12,8 @@ public record TaskRequestDTO(
 
         UUID projectId,
 
-        UUID assigneeId
+        UUID assigneeId,
+
+        UUID epicId
 ) {
 }

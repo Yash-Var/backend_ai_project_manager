@@ -3,11 +3,13 @@ package com.yash.ai_project_manager.project.service;
 import com.yash.ai_project_manager.project.dto.TaskRequestDTO;
 import com.yash.ai_project_manager.project.dto.TaskUpdateMessageDTO;
 import com.yash.ai_project_manager.project.dto.UpdateTaskStatusRequestDTO;
+import com.yash.ai_project_manager.project.entity.Epic;
 import com.yash.ai_project_manager.project.entity.Project;
 import com.yash.ai_project_manager.project.entity.Task;
 import com.yash.ai_project_manager.project.entity.User;
 import com.yash.ai_project_manager.project.enums.ActivityAction;
 import com.yash.ai_project_manager.project.enums.TaskStatus;
+import com.yash.ai_project_manager.project.repository.EpicRepository;
 import com.yash.ai_project_manager.project.repository.ProjectRepository;
 import com.yash.ai_project_manager.project.repository.TaskRepository;
 import com.yash.ai_project_manager.project.repository.UserRepository;
@@ -27,6 +29,7 @@ public class TaskService {
     private final UserRepository userRepository;
     private final ActivityLogService activityLogService;
     private final WebSocketNotificationService webSocketNotificationService;
+    private final EpicRepository epicRepository;
 
     public Task createTask(
             TaskRequestDTO request
@@ -47,6 +50,14 @@ public class TaskService {
                         new RuntimeException(
                                 "User not found"
                         ));
+        Epic epic =
+                epicRepository.findById(
+                                request.epicId()
+                        )
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Epic not found"
+                                ));
 
         Task task = new Task();
 
@@ -63,7 +74,7 @@ public class TaskService {
 
         task.setProject(project);
         task.setAssignee(assignee);
-
+        task.setEpic(epic);
         task.setCreatedAt(
                 LocalDateTime.now()
         );
@@ -152,5 +163,14 @@ public class TaskService {
         return taskRepository.findByStatus(
                 status
         );
+    }
+    public List<Task> getTasksByEpic(
+            UUID epicId
+    ) {
+
+        return taskRepository
+                .findByEpicId(
+                        epicId
+                );
     }
 }

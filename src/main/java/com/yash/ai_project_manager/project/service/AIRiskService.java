@@ -41,6 +41,7 @@ public class AIRiskService {
                             LocalDateTime.now()
                     );
 
+            System.out.println(task.getCreatedAt());
             if(task.getStatus()
                     != TaskStatus.DONE
                     && age > 7) {

@@ -65,4 +65,14 @@ public class TaskController {
         return activityLogService
                 .getTaskLogs(taskId);
     }
+    @GetMapping("/epic/{epicId}")
+    public List<Task> getTasksByEpic(
+            @PathVariable UUID epicId
+    ) {
+
+        return taskService
+                .getTasksByEpic(
+                        epicId
+                );
+    }
 }

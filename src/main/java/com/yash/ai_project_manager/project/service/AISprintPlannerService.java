@@ -23,7 +23,7 @@ public class AISprintPlannerService {
     ) {
 
         List<Task> tasks =
-                taskRepository.findByProjectId(
+                taskRepository.findByProjectIdOrderByCreatedAtAsc(
                         projectId
                 );
 
