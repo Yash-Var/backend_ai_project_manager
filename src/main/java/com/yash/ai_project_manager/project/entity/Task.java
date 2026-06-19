@@ -43,6 +43,8 @@ public class Task {
     @JoinColumn(name = "assignee_id")
     private User assignee;
 
+    private String requiredSkill;
+
     private LocalDateTime createdAt;
 }
 

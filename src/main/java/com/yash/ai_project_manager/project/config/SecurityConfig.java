@@ -28,8 +28,9 @@ public class SecurityConfig {
 
                         .requestMatchers(
                                 "/api/auth/**",
-                                "api/ai/**",
-                                "/ws/**"
+                                "/api/ai/**",
+                                "/ws/**",
+                                "/api/"
                         ).permitAll()
                         .anyRequest()
                         .authenticated()

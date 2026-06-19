@@ -34,7 +34,7 @@ public class TaskService {
     public Task createTask(
             TaskRequestDTO request
     ) {
-
+        System.out.println(request);
         Project project =
                 projectRepository.findById(
                         request.projectId()
@@ -43,13 +43,18 @@ public class TaskService {
                                 "Project not found"
                         ));
 
-        User assignee =
-                userRepository.findById(
-                        request.assigneeId()
-                ).orElseThrow(() ->
-                        new RuntimeException(
-                                "User not found"
-                        ));
+        User assignee = null;
+
+        if (request.assigneeId() != null) {
+
+            assignee =
+                    userRepository.findById(
+                            request.assigneeId()
+                    ).orElseThrow(() ->
+                            new RuntimeException(
+                                    "User not found"
+                            ));
+        }
         Epic epic =
                 epicRepository.findById(
                                 request.epicId()
@@ -81,11 +86,14 @@ public class TaskService {
 
         Task savedTask =
                 taskRepository.save(task);
-        activityLogService.log(
-                assignee,
-                savedTask,
-                ActivityAction.TASK_CREATED
-        );
+        if (assignee != null) {
+
+            activityLogService.log(
+                    assignee,
+                    savedTask,
+                    ActivityAction.TASK_CREATED
+            );
+        }
         webSocketNotificationService.sendTaskUpdate(
                 new TaskUpdateMessageDTO(
                         savedTask.getId().toString(),

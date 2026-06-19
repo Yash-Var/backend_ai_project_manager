@@ -9,7 +9,7 @@ public record AIProjectCreationResponseDTO(
 
         String projectName,
 
-        List<String> epics
+        List<AIEpicWithTasksDTO> epics
 
 ) {
 }

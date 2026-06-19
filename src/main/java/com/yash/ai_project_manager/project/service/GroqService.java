@@ -60,22 +60,46 @@ public class GroqService {
     ) {
 
         String prompt = """
-                You are a senior software architect.
+            You are a Senior Technical Architect.
 
-                Return ONLY valid JSON.
+            Return ONLY valid JSON.
 
-                Format:
+            Do not return markdown.
 
+            Format:
+
+            {
+              "tasks":[
                 {
-                  "tasks":[
-                    "Task 1",
-                    "Task 2"
-                  ]
+                  "title":"Create User Entity",
+                  "description":"Create JPA entity for users",
+                  "storyPoints":2,
+                  "requiredSkill":"Spring Boot"
                 }
+              ]
+            }
 
-                Epic:
-                %s
-                """.formatted(epicName);
+            Rules:
+
+            1. Generate 5 to 10 tasks.
+            2. Estimate realistic story points.
+            3. Required skill must be one of:
+
+               React
+               Next.js
+               TypeScript
+               Spring Boot
+               Spring Security
+               PostgreSQL
+               Redis
+               Docker
+               Testing
+               QA
+
+            Epic:
+
+            %s
+            """.formatted(epicName);
 
         return callGroq(prompt);
     }

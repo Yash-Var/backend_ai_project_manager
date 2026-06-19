@@ -1,5 +1,6 @@
 package com.yash.ai_project_manager.project.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,6 +29,6 @@ public class Project {
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
 }

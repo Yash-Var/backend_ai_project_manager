@@ -1,8 +1,6 @@
 package com.yash.ai_project_manager.project.dto;
 
-import java.util.UUID;
-
-public record TaskRequestDTO(
+public record AITaskDTO(
 
         String title,
 
@@ -10,10 +8,7 @@ public record TaskRequestDTO(
 
         Integer storyPoints,
 
-        UUID projectId,
+        String requiredSkill
 
-        UUID epicId,
-
-        UUID assigneeId
 ) {
 }

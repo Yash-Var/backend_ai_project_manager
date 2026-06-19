@@ -7,6 +7,8 @@ import com.yash.ai_project_manager.project.entity.Project;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AIBootstrapService {
@@ -18,6 +20,9 @@ public class AIBootstrapService {
     private final GroqService groqService;
 
     private final ObjectMapper objectMapper;
+
+    private final AITaskGenerationService
+            aiTaskGenerationService;
 
     public AIProjectCreationResponseDTO createProject(
             AIProjectCreationRequestDTO request
@@ -113,14 +118,23 @@ public class AIBootstrapService {
 
             /*
              * Step 6
+             * Generate Tasks For Saved Epics
+             */
+            List<AIEpicWithTasksDTO> epicsWithTasks =
+                    aiTaskGenerationService
+                            .generateTasksForProject(
+                                    project.getId()
+                            );
+
+            /*
+             * Step 7
              * Return Response
              */
             return new AIProjectCreationResponseDTO(
                     project.getId(),
                     project.getName(),
-                    response.epics()
+                    epicsWithTasks
             );
-
         } catch (Exception e) {
 
             throw new RuntimeException(
