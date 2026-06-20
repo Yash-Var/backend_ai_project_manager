@@ -1,31 +1,30 @@
 package com.yash.ai_project_manager.project.entity;
 
 import jakarta.persistence.*;
-import com.yash.ai_project_manager.project.enums.Role;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "users")
+@Table(name = "email_verification_tokens")
 @Getter
 @Setter
-public class User {
+public class EmailVerificationToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private String name;
-
     @Column(unique = true)
-    private String email;
+    private String token;
 
-    private String password;
+    private LocalDateTime expiryTime;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    private boolean used;
 
-    private boolean verified;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }
