@@ -42,6 +42,8 @@ public class AuthService {
         );
 
         user.setRole(request.role());
+        user.setSkillSet(request.skillSet());
+        user.setSprintCapacity(request.sprintCapacity());
 
         userRepository.save(user);
 

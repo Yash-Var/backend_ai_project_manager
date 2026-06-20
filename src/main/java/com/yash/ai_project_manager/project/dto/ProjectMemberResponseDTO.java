@@ -1,12 +1,20 @@
 package com.yash.ai_project_manager.project.dto;
 
-import com.yash.ai_project_manager.project.enums.Role;
+import java.util.UUID;
 
-public record RegisterRequestDTO(
+public record ProjectMemberResponseDTO(
+
+        UUID userId,
+
         String name,
+
         String email,
-        String password,
-        Role role,
+
+        String role,
+
         String skillSet,
+
         Integer sprintCapacity
-) {}
+
+) {
+}

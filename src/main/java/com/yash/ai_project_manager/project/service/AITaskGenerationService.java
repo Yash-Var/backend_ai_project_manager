@@ -75,9 +75,10 @@ public class AITaskGenerationService {
                                     task.title(),
                                     task.description(),
                                     task.storyPoints(),
+                                    task.requiredSkill(),
                                     projectId,
-                                    epic.getId(),
-                                    null
+                                    null,
+                                    epic.getId()
                             );
 
                     taskService.createTask(

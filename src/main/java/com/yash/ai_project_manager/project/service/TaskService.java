@@ -72,6 +72,9 @@ public class TaskService {
         task.setStoryPoints(
                 request.storyPoints()
         );
+        task.setRequiredSkill(
+                request.requiredSkill()
+        );
 
         task.setStatus(
                 TaskStatus.TODO
