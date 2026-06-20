@@ -14,4 +14,7 @@ public interface SprintTaskRepository
     List<SprintTask> findBySprintId(
             UUID sprintId
     );
+    boolean existsByTaskId(
+            UUID taskId
+    );
 }

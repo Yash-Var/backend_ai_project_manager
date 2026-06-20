@@ -10,10 +10,13 @@ public record TaskRequestDTO(
 
         Integer storyPoints,
 
+        String requiredSkill,
+
         UUID projectId,
 
-        UUID epicId,
+        UUID assigneeId,
 
-        UUID assigneeId
+        UUID epicId
+
 ) {
 }

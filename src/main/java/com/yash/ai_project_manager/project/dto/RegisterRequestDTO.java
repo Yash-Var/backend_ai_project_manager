@@ -10,5 +10,7 @@ public record RegisterRequestDTO(
         String name,
         String email,
         String password,
-        Role role
+        Role role,
+        String skillSet,
+        Integer sprintCapacity
 ) {}

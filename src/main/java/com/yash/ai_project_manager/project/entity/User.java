@@ -28,4 +28,8 @@ public class User {
     private Role role;
 
     private boolean verified;
+  
+    private String skillSet;
+
+    private Integer sprintCapacity;
 }
