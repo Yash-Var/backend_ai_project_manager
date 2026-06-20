@@ -64,4 +64,17 @@ public class AIController {
         return aiBootstrapService
                 .createProject(request);
     }
+
+    @PostMapping("/approve-plan")
+    public ApproveSprintPlanResponseDTO
+    approveSprintPlan(
+            @RequestBody
+            ApproveSprintPlanRequestDTO request
+    ) {
+
+        return plannerService
+                .approveSprintPlan(
+                        request
+                );
+    }
 }

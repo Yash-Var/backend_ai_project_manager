@@ -16,7 +16,9 @@ public record TaskRequestDTO(
 
         UUID assigneeId,
 
-        UUID epicId
+        UUID epicId,
+
+        Integer sequenceOrder
 
 ) {
 }

@@ -45,6 +45,8 @@ public class Task {
     
     private String requiredSkill;
 
+    private Integer sequenceOrder;
+
     private LocalDateTime createdAt;
 }
 

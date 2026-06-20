@@ -78,7 +78,8 @@ public class AITaskGenerationService {
                                     task.requiredSkill(),
                                     projectId,
                                     null,
-                                    epic.getId()
+                                    epic.getId(),
+                                    task.sequenceOrder()
                             );
 
                     taskService.createTask(

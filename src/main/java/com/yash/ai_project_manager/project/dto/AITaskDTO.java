@@ -8,7 +8,9 @@ public record AITaskDTO(
 
         Integer storyPoints,
 
-        String requiredSkill
+        String requiredSkill,
+        
+        Integer sequenceOrder
 
 ) {
 }

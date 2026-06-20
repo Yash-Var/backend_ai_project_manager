@@ -74,8 +74,16 @@ public class GroqService {
                   "title":"Create User Entity",
                   "description":"Create JPA entity for users",
                   "storyPoints":2,
-                  "requiredSkill":"Spring Boot"
-                }
+                  "requiredSkill":"Spring Boot",
+                   "sequenceOrder":1
+                },
+                 {
+                   "title":"Implement User Entity",
+                   "description":"...",
+                   "storyPoints":2,
+                   "requiredSkill":"Spring Boot",
+                   "sequenceOrder":2
+                 }
               ]
             }
 

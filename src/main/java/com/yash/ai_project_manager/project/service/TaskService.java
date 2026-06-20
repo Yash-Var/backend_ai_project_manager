@@ -72,6 +72,9 @@ public class TaskService {
         task.setStoryPoints(
                 request.storyPoints()
         );
+        task.setSequenceOrder(
+                request.sequenceOrder()
+        );
         task.setRequiredSkill(
                 request.requiredSkill()
         );
@@ -111,7 +114,7 @@ public class TaskService {
             UUID projectId
     ) {
         return taskRepository
-                .findByProjectId(projectId);
+                .findByProjectIdOrderByCreatedAtAsc(projectId);
     }
     public Task updateTaskStatus(
             UUID taskId,

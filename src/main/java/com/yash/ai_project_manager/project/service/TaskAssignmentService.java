@@ -141,7 +141,7 @@ public class TaskAssignmentService {
     ) {
 
         List<Task> tasks =
-                taskRepository.findByProjectId(
+                taskRepository.findByProjectIdOrderByCreatedAtAsc(
                         projectId
                 );
 

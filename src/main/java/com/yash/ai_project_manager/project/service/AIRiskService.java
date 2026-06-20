@@ -24,7 +24,7 @@ public class AIRiskService {
     ) {
 
         List<Task> tasks =
-                taskRepository.findByProjectId(
+                taskRepository.findByProjectIdOrderByCreatedAtAsc(
                         projectId
                 );
 
