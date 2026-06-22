@@ -12,8 +12,15 @@ import com.yash.ai_project_manager.project.dto.MessageResponseDTO;
 import com.yash.ai_project_manager.project.entity.EmailVerificationToken;
 import com.yash.ai_project_manager.project.repository.EmailVerificationTokenRepository;
 
+import com.yash.ai_project_manager.project.dto.ForgotPasswordRequestDTO;
+import com.yash.ai_project_manager.project.dto.ResetPasswordRequestDTO;
+import com.yash.ai_project_manager.project.entity.PasswordResetToken;
+import com.yash.ai_project_manager.project.repository.PasswordResetTokenRepository;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
+
+
 
 @Service
 public class AuthService {
@@ -23,6 +30,8 @@ public class AuthService {
     private final JwtService jwtService;
     private final EmailVerificationTokenRepository
             emailVerificationTokenRepository;
+    private final PasswordResetTokenRepository
+            passwordResetTokenRepository;
 
     private final EmailService emailService;
 
@@ -32,6 +41,7 @@ public class AuthService {
             JwtService jwtService,
             EmailVerificationTokenRepository
                     emailVerificationTokenRepository,
+            PasswordResetTokenRepository passwordResetTokenRepository,
             EmailService emailService
     ) {
         this.userRepository = userRepository;
@@ -39,6 +49,7 @@ public class AuthService {
         this.jwtService = jwtService;
         this.emailVerificationTokenRepository =
                 emailVerificationTokenRepository;
+        this.passwordResetTokenRepository = passwordResetTokenRepository;
         this.emailService = emailService;
     }
 
@@ -180,6 +191,100 @@ public class AuthService {
 
         return new MessageResponseDTO(
                 "Email verified successfully."
+        );
+    }
+
+    public MessageResponseDTO forgotPassword(
+            ForgotPasswordRequestDTO request
+    ) {
+
+        User user = userRepository
+                .findByEmail(request.email())
+                .orElseThrow(() ->
+                        new RuntimeException(
+                                "Email not registered"
+                        )
+                );
+
+        String token =
+                UUID.randomUUID().toString();
+
+        PasswordResetToken resetToken =
+                new PasswordResetToken();
+
+        resetToken.setToken(token);
+        resetToken.setUser(user);
+        resetToken.setUsed(false);
+
+        resetToken.setExpiryTime(
+                LocalDateTime.now().plusDays(1)
+        );
+
+        passwordResetTokenRepository
+                .save(resetToken);
+
+        emailService.sendPasswordResetEmail(
+                user.getEmail(),
+                token
+        );
+
+        return new MessageResponseDTO(
+                "Password reset link sent successfully."
+        );
+    }
+
+    public MessageResponseDTO resetPassword(
+            ResetPasswordRequestDTO request
+    ) {
+
+        PasswordResetToken resetToken =
+                passwordResetTokenRepository
+                        .findByToken(request.token())
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Invalid reset token"
+                                )
+                        );
+
+        if (resetToken.isUsed()) {
+            throw new RuntimeException(
+                    "Token already used"
+            );
+        }
+
+        if (resetToken.getExpiryTime()
+                .isBefore(LocalDateTime.now())) {
+
+            throw new RuntimeException(
+                    "Token expired"
+            );
+        }
+
+        if (!request.newPassword()
+                .equals(request.confirmPassword())) {
+
+            throw new RuntimeException(
+                    "Passwords do not match"
+            );
+        }
+
+        User user = resetToken.getUser();
+
+        user.setPassword(
+                passwordEncoder.encode(
+                        request.newPassword()
+                )
+        );
+
+        userRepository.save(user);
+
+        resetToken.setUsed(true);
+
+        passwordResetTokenRepository
+                .save(resetToken);
+
+        return new MessageResponseDTO(
+                "Password reset successful."
         );
     }
 }
