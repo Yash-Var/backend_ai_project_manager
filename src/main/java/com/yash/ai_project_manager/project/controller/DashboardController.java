@@ -21,6 +21,8 @@ public class DashboardController {
     ) {
 
         return dashboardService
-                .getDashboard(projectId);
+                .getDashboard(
+                        projectId
+                );
     }
 }

@@ -2,6 +2,7 @@ package com.yash.ai_project_manager.project.service;
 
 import com.yash.ai_project_manager.project.dto.AssignTaskToSprintRequestDTO;
 import com.yash.ai_project_manager.project.dto.SprintRequestDTO;
+import com.yash.ai_project_manager.project.dto.SprintSummaryDTO;
 import com.yash.ai_project_manager.project.entity.Project;
 import com.yash.ai_project_manager.project.entity.Sprint;
 import com.yash.ai_project_manager.project.entity.SprintTask;
@@ -101,5 +102,43 @@ public class SprintService {
                 .findBySprintId(
                         sprintId
                 );
+    }
+
+    public List<SprintSummaryDTO>
+    getProjectSprints(
+            UUID projectId
+    ) {
+
+        List<Sprint> sprints =
+                sprintRepository
+                        .findByProjectId(
+                                projectId
+                        );
+
+        return sprints.stream()
+
+                .map(sprint ->
+
+                        new SprintSummaryDTO(
+
+                                sprint.getId(),
+
+                                sprint.getName(),
+
+                                sprint.getGoal(),
+
+                                sprint.getStartDate(),
+
+                                sprint.getEndDate(),
+
+                                sprintTaskRepository
+                                        .findBySprintId(
+                                                sprint.getId()
+                                        )
+                                        .size()
+                        )
+                )
+
+                .toList();
     }
 }

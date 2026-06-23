@@ -38,7 +38,7 @@ public class TaskController {
                 projectId
         );
     }
-    @PatchMapping("/{taskId}/status")
+    @PostMapping("/{taskId}/status")
     public Task updateTaskStatus(
             @PathVariable UUID taskId,
             @RequestBody UpdateTaskStatusRequestDTO request

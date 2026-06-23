@@ -42,8 +42,12 @@ public class ProjectController {
                         projectId
                 );
     }
+    @GetMapping("/{projectId}")
+    public Project getProject(
+            @PathVariable UUID projectId
+    ) {
+        return projectService.getProjectById(
+                projectId
+        );
+    }
 }
-
-//6867182e-953e-44c3-b24d-0b42d7b46207 ----- sprint 1
-//e1dd7af1-4d27-416d-94dd-ac316cf6dd95 ----- sprint 2 
-//        503bd496-51d8-4b37-9c32-8266bef89056 ---- sprint 3

@@ -41,16 +41,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public List<User> getAllUsers(String token) {
-
-        if (!jwtService.isTokenValid(token)) {
-            throw new RuntimeException("Invalid token");
-        }
-
-        String email = jwtService.extractUsername(token);
-
-        System.out.println("Authenticated user: " + email);
-
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 

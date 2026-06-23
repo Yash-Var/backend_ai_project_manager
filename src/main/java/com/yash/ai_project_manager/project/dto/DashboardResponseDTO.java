@@ -2,15 +2,23 @@ package com.yash.ai_project_manager.project.dto;
 
 public record DashboardResponseDTO(
 
-        Integer totalTasks,
+        long totalTasks,
 
-        Integer completedTasks,
+        long todoTasks,
 
-        Integer inProgressTasks,
+        long inProgressTasks,
 
-        Integer blockedTasks,
+        long completedTasks,
 
-        Double completionPercentage
+        int totalStoryPoints,
+
+        int completedStoryPoints,
+
+        int teamMembers,
+
+        int epics,
+
+        int sprints
 
 ) {
 }

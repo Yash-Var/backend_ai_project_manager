@@ -27,11 +27,9 @@ public class UserController {
 
     @GetMapping
     public List<User> getAllUsers(
-            @RequestHeader("Authorization") String authHeader) {
+            ) {
 
-        String token = authHeader.replace("Bearer ", "");
-
-        return userService.getAllUsers(token);
+        return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")

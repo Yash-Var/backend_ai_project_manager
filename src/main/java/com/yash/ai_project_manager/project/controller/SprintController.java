@@ -2,6 +2,7 @@ package com.yash.ai_project_manager.project.controller;
 
 import com.yash.ai_project_manager.project.dto.AssignTaskToSprintRequestDTO;
 import com.yash.ai_project_manager.project.dto.SprintRequestDTO;
+import com.yash.ai_project_manager.project.dto.SprintSummaryDTO;
 import com.yash.ai_project_manager.project.entity.Sprint;
 import com.yash.ai_project_manager.project.entity.SprintTask;
 import com.yash.ai_project_manager.project.service.SprintService;
@@ -48,6 +49,17 @@ public class SprintController {
         return sprintService
                 .getSprintTasks(
                         sprintId
+                );
+    }
+    @GetMapping("/project/{projectId}")
+    public List<SprintSummaryDTO>
+    getProjectSprints(
+            @PathVariable UUID projectId
+    ) {
+
+        return sprintService
+                .getProjectSprints(
+                        projectId
                 );
     }
 }
