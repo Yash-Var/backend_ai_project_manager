@@ -182,4 +182,21 @@ public class GroqService {
             );
         }
     }
+    public String generateStandup(
+            String prompt
+    ) {
+
+        return callGroq(
+                prompt
+        );
+    }
+
+    public String generateChat(
+            String prompt
+    ) {
+
+        return callGroq(
+                prompt
+        );
+    }
 }

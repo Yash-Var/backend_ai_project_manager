@@ -1,5 +1,6 @@
 package com.yash.ai_project_manager.project.service;
 
+import com.yash.ai_project_manager.project.dto.TaskDetailsResponseDTO;
 import com.yash.ai_project_manager.project.dto.TaskRequestDTO;
 import com.yash.ai_project_manager.project.dto.TaskUpdateMessageDTO;
 import com.yash.ai_project_manager.project.dto.UpdateTaskStatusRequestDTO;
@@ -186,5 +187,47 @@ public class TaskService {
                 .findByEpicId(
                         epicId
                 );
+    }
+
+    public TaskDetailsResponseDTO getTaskDetails(
+            UUID taskId
+    ) {
+
+        Task task = taskRepository
+                .findById(taskId)
+                .orElseThrow(() ->
+                        new RuntimeException("Task not found")
+                );
+
+        return new TaskDetailsResponseDTO(
+
+                task.getId(),
+
+                task.getTitle(),
+
+                task.getDescription(),
+
+                task.getStatus(),
+
+                task.getStoryPoints(),
+
+                task.getRequiredSkill(),
+
+                task.getSequenceOrder(),
+
+                task.getProject().getName(),
+
+                task.getEpic() != null
+                        ? task.getEpic().getName()
+                        : "-",
+
+                task.getAssignee() != null
+                        ? task.getAssignee().getName()
+                        : "Unassigned",
+
+                task.getCreatedAt()
+
+        );
+
     }
 }

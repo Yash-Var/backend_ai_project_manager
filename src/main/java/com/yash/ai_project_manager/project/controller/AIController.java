@@ -1,10 +1,7 @@
 package com.yash.ai_project_manager.project.controller;
 
 import com.yash.ai_project_manager.project.dto.*;
-import com.yash.ai_project_manager.project.service.AIBootstrapService;
-import com.yash.ai_project_manager.project.service.AIRiskService;
-import com.yash.ai_project_manager.project.service.AISprintPlannerService;
-import com.yash.ai_project_manager.project.service.GroqService;
+import com.yash.ai_project_manager.project.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +17,8 @@ public class AIController {
     private final AIRiskService riskService;
     private final GroqService groqService;
     private final AIBootstrapService aiBootstrapService;
+    private final AIStandupService aiStandupService;
+    private final AIChatService aiChatService;
 
     @GetMapping("/sprint-plan/{projectId}")
     public List<SprintPlanResponseDTO> generatePlan(
@@ -76,5 +75,33 @@ public class AIController {
                 .approveSprintPlan(
                         request
                 );
+    }
+
+    @GetMapping(
+            "/standup/{projectId}"
+    )
+    public AIStandupResponseDTO
+    generateStandup(
+
+            @PathVariable
+            UUID projectId
+    ) {
+
+        return aiStandupService
+                .generateStandup(
+                        projectId
+                );
+    }
+    @PostMapping("/chat")
+    public AIChatResponseDTO chat(
+
+            @RequestBody
+            AIChatRequestDTO request
+
+    ) {
+
+        return aiChatService.askQuestion(
+                request
+        );
     }
 }

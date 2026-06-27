@@ -1,5 +1,6 @@
 package com.yash.ai_project_manager.project.controller;
 
+import com.yash.ai_project_manager.project.dto.TaskDetailsResponseDTO;
 import com.yash.ai_project_manager.project.dto.TaskRequestDTO;
 import com.yash.ai_project_manager.project.dto.UpdateTaskStatusRequestDTO;
 import com.yash.ai_project_manager.project.entity.ActivityLog;
@@ -74,5 +75,13 @@ public class TaskController {
                 .getTasksByEpic(
                         epicId
                 );
+    }
+    @GetMapping("/{taskId}")
+    public TaskDetailsResponseDTO getTaskDetails(
+            @PathVariable UUID taskId
+    ) {
+
+        return taskService.getTaskDetails(taskId);
+
     }
 }

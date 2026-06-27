@@ -12,4 +12,18 @@ public record AIProjectCreationResponseDTO(
         List<AIEpicWithTasksDTO> epics
 
 ) {
+    public static record AIStandupResponseDTO(
+
+            String standup,
+
+            Integer riskScore,
+
+            Integer completedTasks,
+
+            Integer inProgressTasks,
+
+            Integer todoTasks
+
+    ) {
+    }
 }

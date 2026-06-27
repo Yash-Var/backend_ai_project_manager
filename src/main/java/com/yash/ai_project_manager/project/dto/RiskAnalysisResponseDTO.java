@@ -6,7 +6,9 @@ public record RiskAnalysisResponseDTO(
 
         Integer riskScore,
 
-        List<String> highRiskTasks
+        List<String> risks,
+
+        List<String> recommendations
 
 ) {
 }
